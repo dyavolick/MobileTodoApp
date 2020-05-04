@@ -5,14 +5,14 @@ import { MainScreen } from "./src/screens/MainScreen";
 import { TodoScreen } from "./src/screens/TodoScreen";
 
 export default function App() {
-  const [todoId, setTodoId] = useState("2");
+  const [todoId, setTodoId] = useState(null);
   const [todos, setTodos] = useState([
     { id: "1", title: "test 1" },
-    { id: "2", title: "test 2" },
+    //{ id: "2", title: "test 2" },
   ]);
   const addTodo = (title) => {
     setTodos((prev) => [
-      ...prev,
+      ...prev, 
       {
         id: Date.now().toString(),
         title,
@@ -29,7 +29,7 @@ export default function App() {
         return todo;
       })
     );
-  };
+  }; 
 
   const removeTodo = (id) => {
     const todo = todos.find((t) => t.id === id);
@@ -83,7 +83,7 @@ export default function App() {
       <View style={styles.container}>{content}</View>
     </View>
   );
-}
+} 
 
 const styles = StyleSheet.create({
   container: {
