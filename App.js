@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import { Navbar } from "./src/components/Navbar";
 import { MainScreen } from "./src/screens/MainScreen";
 import { TodoScreen } from "./src/screens/TodoScreen";
 
 export default function App() {
-  const [todoId, setTodoId] = useState(null)
+  const [todoId, setTodoId] = useState("2");
   const [todos, setTodos] = useState([
-    {id:'1',title:'test 1'},
-    {id:'2',title:'test 2'}
+    { id: "1", title: "test 1" },
+    { id: "2", title: "test 2" },
   ]);
   const addTodo = (title) => {
     setTodos((prev) => [
@@ -20,36 +20,67 @@ export default function App() {
     ]);
   };
 
-  const removeTodo= (id) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  const updateTodo = (id, title) => {
+    setTodos((old) =>
+      old.map((todo) => {  
+        if (todo.id === id) {
+          todo.title = title;
+        }
+        return todo;
+      })
+    );
   };
 
-  const openTodo  = (id) => {
+  const removeTodo = (id) => {
+    const todo = todos.find((t) => t.id === id);
+    Alert.alert(
+      "Удаление элемента ",
+      `Вы уверены, что хотите удалить ${todo.title}?`,
+      [
+        {
+          text: "Отмена",
+          style: "cancel",
+        },
+        {
+          text: "Удалить",
+          onPress: () => {
+            setTodoId(null);
+            setTodos((prev) => prev.filter((todo) => todo.id !== id));
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const openTodo = (id) => {
     setTodoId(id);
   };
 
   let content = (
-        <MainScreen 
-        todos={todos} 
-        addTodo={addTodo} 
-        removeTodo={removeTodo}
-        openTodo={openTodo} />
+    <MainScreen
+      todos={todos}
+      addTodo={addTodo}
+      removeTodo={removeTodo}
+      openTodo={openTodo}
+    />
   );
-  if(todoId){
-    const selectedTodo = todos.find(todo=>todo.id===todoId)
+  if (todoId) {
+    const selectedTodo = todos.find((todo) => todo.id === todoId);
     content = (
-      <TodoScreen 
-      todo={selectedTodo} 
-      goBack={()=>setTodoId(null)} />
-);
+      <TodoScreen
+        onSave={updateTodo}
+        onRemove={removeTodo}
+        todo={selectedTodo}
+        goBack={() => setTodoId(null)}
+      />
+    );
   }
 
   return (
     <View>
       <Navbar title="Todo App" />
-      <View style={styles.container}>
-        {content}
-      </View>
+      <View style={styles.container}>{content}</View>
     </View>
   );
 }
