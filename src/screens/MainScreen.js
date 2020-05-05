@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, Image, View, FlatList } from "react-native";
+import { StyleSheet, Image, View, FlatList } from "react-native";
 import { AddTodo } from "../components/AddTodo";
 import { Todo } from "../components/Todo";
 
@@ -25,7 +25,7 @@ export const MainScreen = ({ addTodo, todos, removeTodo, openTodo }) => {
     );
   }
 
-  return (
+  return ( 
     <View>
       <AddTodo onSubmit={addTodo} />
       {content}
@@ -39,10 +39,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 10,
     height: 300,
-  },
+  }, 
   image: {
     width: "100%",
     height: "100%",
     resizeMode: 'contain'
   },
 });
+    
