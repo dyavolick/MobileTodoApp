@@ -1,13 +1,12 @@
 {
   "expo": {
-    "name": "Blank Template",
+    "name": "Todo App",
     "slug": "rn-todo-app",
     "privacy": "public",
     "sdkVersion": "37.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,8 +23,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ru.athex.rn-todo-app",
+      "buildNumber" : "1.0.0"
+
     },
-    "description": ""
+    "android": {
+      "package": "ru.athex.rn_todo_app",
+      "versionCode": 1,
+      "permissions":[
+
+      ]
+
+    },
+    "description": "App for todo list" 
   }
 }
